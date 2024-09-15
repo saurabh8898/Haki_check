@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        #quiz-container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .options button {
+            display: block;
+            margin: 5px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <h1>Quiz</h1>
+        <div id="question-container">
+            <!-- Questions will be dynamically inserted here -->
+        </div>
+        <button id="next-button">Next Question</button>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // JavaScript code to handle the quiz
+        let currentQuestionIndex = 0;
+
+        function displayQuestion(question, options) {
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.innerHTML = `
+                <div class="question">
+                    <p>${question}</p>
+                    <div class="options">
+                        ${options.map((opt, idx) => `<button onclick="handleAnswer('${opt.value}')">${String.fromCharCode(65 + idx)}) ${opt.text}</button>`).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function handleAnswer(value) {
+            // Simulate handling the answer
+            switch (value) {
+                case 'red':
+                    red++;
+                    break;
+                case 'blue':
+                    blue++;
+                    break;
+                case 'green':
+                    green++;
+                    break;
+                case 'yellow':
+                    yellow++;
+                    break;
+                case 'black':
+                    black++;
+                    break;
+                case 'purple':
+                    purple++;
+                    break;
+                case 'white':
+                    white++;
+                    break;
+            }
+            currentQuestionIndex++;
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion(questions[currentQuestionIndex].question, questions[currentQuestionIndex].options);
+            } else {
+                determineHaki();
+            }
+        }
+
+        function determineHaki() {
+            let haki = null;
+            let traits = '';
+
+            if (red >= 5) {
+                haki = "Conquerors Haki (Red)";
+                traits = auroOrHaki['Conquerors_Haki(Red)'].join(', ');
+            } else if (blue >= 5) {
+                haki = "Observation Haki (Blue)";
+                traits = auroOrHaki['Observation_Haki(Blue)'].join(', ');
+            } else if (green >= 5) {
+                haki = "Armament Haki (Green)";
+                traits = auroOrHaki['Armament_Haki(Green)'].join(', ');
+            } else if (yellow >= 5) {
+                haki = "Brightheart Haki (Yellow)";
+                traits = auroOrHaki['Brightheart_Haki(Yellow)'].join(', ');
+            } else if (purple >= 5) {
+                haki = "Supreme King Haki (Purple)";
+                traits = auroOrHaki['Supreme_King_Haki(Purple)'].join(', ');
+            } else if (black >= 5) {
+                haki = "Abyssal Haki (Black)";
+                traits = auroOrHaki['Abyssal_Haki(Black)'].join(', ');
+            } else if (white >= 5) {
+                haki = "Divine Purity Haki (White)";
+                traits = auroOrHaki['Divine_Purity_Haki(White)'].join(', ');
+            } else {
+                haki = "No Haki Developed";
+                traits = "Work harder!";
+            }
+
+            document.getElementById('question-container').innerHTML = `
+                <h2>Your Haki: ${haki}</h2>
+                <p>Traits: ${traits}</p>
+            `;
+            document.getElementById('next-button').style.display = 'none'; // Hide next button
+        }
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            if (currentQuestionIndex < questions.length) {
+                displayQuestion(questions[currentQuestionIndex].question, questions[currentQuestionIndex].options);
+            }
+        });
+
+        // Initial call to display the first question
+        displayQuestion(questions[currentQuestionIndex].question, questions[currentQuestionIndex].options);
+    </script>
+</body>
+</html>

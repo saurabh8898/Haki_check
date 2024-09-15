@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haki Checker</title>
+</head>
+<body>
+    <h1>Haki Checker</h1>
+    <form method="POST">
+        {% for index in indices %}
+            <fieldset>
+                <legend>{{ questions[index].question }}</legend>
+                {% for option in questions[index].options %}
+                    <label>
+                        <input type="radio" name="question_{{ index }}" value="{{ option[0] }}" required>
+                        {{ option[1] }}
+                    </label><br>
+                {% endfor %}
+            </fieldset>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if haki %}
+        <h2>Result:</h2>
+        <p>{{ haki }}</p>
+    {% endif %}
+</body>
+</html>

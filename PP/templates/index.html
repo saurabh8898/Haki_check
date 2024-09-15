@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haki Quiz</title>
+</head>
+<body>
+    <h1>Haki Quiz</h1>
+    <form action="{{ url_for('submit') }}" method="post">
+        <h2>{{ question['question'] }}</h2>
+        {% for option in question['options'] %}
+            <input type="radio" name="answer" value="{{ option['value'] }}" required> {{ option['text'] }}<br>
+        {% endfor %}
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
